@@ -31,9 +31,17 @@ class DatabaseSeeder extends Seeder
         }
         \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'name' => 'Abdulla Madaki',
-            'email' => 'abm@gmail.com',
-        ]);
+        // \App\Models\User::factory()->create([
+        
+        foreach ($users as $user) {
+            $jobs = \App\Models\Job::inRandomOrder()->take(rand(0, 4))->get();
+
+            foreach ($jobs as $job) {
+                \App\Models\JobApplication::factory()->create([
+                    'job_id' => $job->id,
+                    'user_id' => $user->id
+                ]);
+            }
+        }
     }
 }
