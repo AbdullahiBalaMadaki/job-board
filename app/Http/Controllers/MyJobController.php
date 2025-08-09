@@ -13,7 +13,15 @@ class MyJobController extends Controller
      */
     public function index()
     {
-        return view('my_job.index');
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); // ✅ Explicitly fetch user
+
+        return view('my_job.index', [
+            'jobs' => $user->employer
+                ->jobs()
+                ->with(['employer', 'jobApplications', 'jobApplications.user'])
+                ->get()
+        ]);
     }
 
     /**
@@ -39,7 +47,7 @@ class MyJobController extends Controller
         ]);
 
         /** @var \App\Models\User $user */
-        $user = Auth::user(); // ✅ Explicitly fetch user for type hinting
+        $user = Auth::user(); // ✅ Explicitly fetch user
 
         // ✅ Access employer relation and create job
         $user->employer->jobs()->create($validatedData);
