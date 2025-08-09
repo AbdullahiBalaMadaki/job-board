@@ -13,6 +13,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 class Job extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'title',
+        'location',
+        'salary',
+        'description',
+        'experience',
+        'category'
+    ];
 
     public static array $experience = ['entry', 'intermediate', 'senior'];
 
