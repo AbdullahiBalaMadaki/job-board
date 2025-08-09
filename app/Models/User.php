@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property-read \App\Models\Employer $employer
+ */
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -47,10 +51,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function employer(): HasOne
-    {
-        return $this->hasOne(Employer::class);
-    }
+  public function employer()
+{
+    return $this->hasOne(Employer::class);
+}
      public function jobApplications(): HasMany
     {
         return $this->hasMany(JobApplication::class);
