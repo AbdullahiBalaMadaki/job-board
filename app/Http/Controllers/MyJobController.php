@@ -68,7 +68,7 @@ class MyJobController extends Controller
     public function update(JobRequest $request, Job $myJob)
     {
         $this->authorize('update', $myJob);
-        
+
         $myJob->update($request->validated());
 
         return redirect()->route('my-jobs.index')
@@ -78,8 +78,11 @@ class MyJobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Job $myJob)
     {
-        //
+        $myJob->delete();
+
+        return redirect()->route('my-jobs.index')
+            ->with('success', 'Job deleted.');
     }
 }
